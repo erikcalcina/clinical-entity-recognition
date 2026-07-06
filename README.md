@@ -32,19 +32,46 @@ Every model emits entities as `(text, label)` pairs and is scored with **Exact F
 
 ## Installation
 
-GLiNER and Unsloth are exposed as **separate extras**. Although recent versions overlap
-on `transformers`, mixing them in one environment risks subtle conflicts (tokenizers,
-accelerate, CUDA wheels). Install one at a time, in its own environment:
+Requires Python 3.10 (see `.python-version`). We use [uv](https://docs.astral.sh/uv/) to
+manage environments — install it first
+([instructions](https://docs.astral.sh/uv/getting-started/installation/)):
+
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+GLiNER and Unsloth are exposed as **separate extras**. Although recent versions overlap on
+`transformers`, mixing them in one environment risks subtle conflicts (tokenizers,
+accelerate, CUDA wheels), so each approach gets its **own** venv. A venv is just a
+directory — the three coexist, and you switch between them by activating, never by
+deleting. Set up whichever you need (`uv` provisions Python 3.10 automatically if missing):
 
 ```bash
 # LLM approach (Unsloth LoRA + prompting)
-pip install -e ".[unsloth]"
+uv venv .venv-unsloth --python 3.10
+source .venv-unsloth/bin/activate      # Windows: .venv-unsloth\Scripts\activate
+uv pip install -e ".[unsloth]"
 
 # GLiNER approach
-pip install -e ".[gliner]"
+uv venv .venv-gliner --python 3.10
+source .venv-gliner/bin/activate
+uv pip install -e ".[gliner]"
 
 # BERT approach (plain transformers)
-pip install -e ".[bert]"
+uv venv .venv-bert --python 3.10
+source .venv-bert/bin/activate
+uv pip install -e ".[bert]"
+```
+
+Run `deactivate` to leave a venv; `source .venv-<name>/bin/activate` to switch to another.
+(`uv pip install` targets the active venv; without activating, pass
+`--python .venv-<name>/bin/python`.)
+
+Data preparation (`scripts/prepare_*.py`) needs the lightweight `data` extra, which works
+in any of the venvs above:
+
+```bash
+uv pip install -e ".[data]"            # datasets (core) + nltk for MACCROBAT
 ```
 
 ## Data
@@ -123,16 +150,6 @@ clinical-entity-recognition/
 ├── data/                     # (empty) — see data/README.md; no data committed
 └── docs/assets/logo.svg
 ```
-
-## Reproducibility notes
-
-- All approaches share one scorer (`cer.core.metrics.NERMetrics`) and report Exact and
-  Relaxed F1. LLM decoding is greedy for determinism.
-- Prompts (Appendix A) and hyperparameters (Section 4.4) are reproduced faithfully — for
-  example the LLM effective batch size is `4`, and the semantic label definitions preserve
-  inline case (`mmHg`, `UMLS/MeSH/OMIM`).
-- Seeds are fixed (`42`) but results still reflect single runs; the thesis notes that
-  repeated runs and per-dataset tuning would tighten the close comparisons (Section 7.2).
 
 ## License
 

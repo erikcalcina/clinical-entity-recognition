@@ -69,7 +69,7 @@ identical across the GLiNER, BERT, and LLM approaches by construction — the co
 requirement from thesis Section 3.4. Install the extra dependencies first:
 
 ```bash
-pip install -e ".[data]"     # nltk (MACCROBAT); `datasets` is already a core dependency
+uv pip install -e ".[data]"  # nltk (MACCROBAT); `datasets` is already a core dependency
 ```
 
 | Corpus | Command | Source |
