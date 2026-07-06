@@ -1,0 +1,86 @@
+[build-system]
+requires = ['setuptools>=42']
+build-backend = 'setuptools.build_meta'
+
+[project]
+name = "clinical-entity-recognition"
+version = "1.0.0"
+description = "Clinical entity recognition with LLMs (Unsloth LoRA + prompting), GLiNER, and BERT — reproducibility code for the master thesis."
+requires-python = ">=3.10"
+authors = [
+    {name = "Erik Calcina", email = "erik.calcina@gmail.com"},
+]
+license = { file = "LICENSE" }
+readme = "README.md"
+keywords = [
+    "clinical nlp",
+    "named entity recognition",
+    "biomedical",
+    "gliner",
+    "llm",
+    "bert",
+]
+classifiers = [
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Programming Language :: Python :: 3.10",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "numpy>=2.0,<3",
+    "pandas>=2.2,<4",
+    "torch",
+    "accelerate>=1.0,<2",
+    "datasets>=3.0,<5",
+    "pyyaml>=6.0,<7",
+    "tqdm>=4.66,<5",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["cer*"]
+
+[project.optional-dependencies]
+# NOTE: gliner and unsloth are kept as separate extras. Although recent
+# versions overlap on `transformers`, mixing them in one environment risks
+# subtle conflicts (tokenizers, accelerate, CUDA wheels). Install one at a
+# time, e.g.:
+#   pip install -e ".[unsloth]"   OR   pip install -e ".[gliner]"
+# The BERT approach uses plain transformers and can share the gliner extra.
+unsloth = [
+    "unsloth>=2026.5.2,<2027",
+    "unsloth-zoo>=2026.5.1,<2027",
+    "trl>=0.24,<0.25",
+    # transformers>=4.51.3 installed automatically by unsloth
+]
+gliner = [
+    "gliner>=0.2.26,<0.3",
+    "transformers>=4.51.3,<5.7",
+    "timm>=1.0,<2",
+]
+bert = [
+    "transformers>=4.51.3,<5.7",
+]
+# Raw-corpus preparation (scripts/prepare_*.py). `datasets` is already a core
+# dependency; nltk is only needed for MACCROBAT sentence segmentation.
+data = [
+    "nltk>=3.8,<4",
+]
+dev = [
+    "black",
+    "isort",
+    "flake8",
+    "flake8-pyproject",
+]
+
+[tool.black]
+line-length = 120
+
+[tool.isort]
+profile = "black"
+line_length = 120
+
+[tool.flake8]
+max-line-length = 120
+ignore = ["E731", "E501", "W503"]
+exclude = [".git", ".github", "data", "docs", "logs", "results", "models"]

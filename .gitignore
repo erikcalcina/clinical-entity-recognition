@@ -1,0 +1,42 @@
+# ---- Data (never commit corpora; ICN is private patient data) ----
+data/*
+!data/README.md
+
+# ---- Trained models, results, logs ----
+models/
+results/
+logs/
+*.ckpt
+*.safetensors
+adapter_model.bin
+
+# ---- Unsloth / HF caches ----
+unsloth_compiled_cache/
+.cache/
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+*.egg
+
+# ---- Virtual environments ----
+venv/
+.venv/
+env/
+.env
+
+# ---- Tooling ----
+.ruff_cache/
+.pytest_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+
+# ---- OS / editor ----
+.DS_Store
+*.swp
+.idea/
+.vscode/

@@ -1,0 +1,11 @@
+# BERT fine-tuning defaults — thesis Section 4.4.3
+# Tuned on BioClinicalBERT, applied uniformly to PubMedBERT.
+# Evaluated on MACCROBAT2020 only.
+optimizer: AdamW
+learning_rate: 5.0e-5
+num_epochs: 10
+batch_size: 16
+max_length: 512
+val_ratio: 0.1
+seed: 42
+# Grid searched: learning_rate in {1e-5, 2e-5, 3e-5, 5e-5}, epochs in {3, 5, 10, 15, 20}, batch 16

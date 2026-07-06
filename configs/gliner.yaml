@@ -1,0 +1,9 @@
+# GLiNER fine-tuning defaults — thesis Section 4.4.2
+# Tuned on gliner_large_bio-v0.1, applied uniformly to all GLiNER variants.
+# No semantic label definitions: GLiNER uses the short entity-type names directly.
+optimizer: AdamW
+learning_rate: 5.0e-6
+num_epochs: 5
+batch_size: 8
+seed: 42
+# Grid searched: learning_rate in {1e-6, 5e-6, 1e-5, 5e-5}, epochs in {3, 5, 10}

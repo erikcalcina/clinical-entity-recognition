@@ -1,0 +1,16 @@
+# LLM LoRA fine-tuning defaults — thesis Section 4.4.1
+# Tuned on Meta-Llama-3-8B-Instruct, applied uniformly to all LLM variants.
+optimizer: AdamW            # SFTConfig optim=adamw_8bit
+learning_rate: 2.0e-4
+num_epochs: 3
+batch_size: 4               # per-device batch 4, gradient accumulation 1 -> effective 4
+gradient_accumulation_steps: 1
+load_in_4bit: true
+lora:
+  rank: 16
+  alpha: 32
+  dropout: 0.05
+  bias: none
+  task_type: CAUSAL_LM
+  target_modules: [q_proj, k_proj, v_proj, o_proj, gate_proj, down_proj, up_proj]
+seed: 42
