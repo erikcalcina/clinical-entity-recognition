@@ -2,30 +2,31 @@
   <style>
     .wm-title { font: 700 46px "Segoe UI", "Helvetica Neue", Arial, sans-serif; fill: #0f172a; }
     .wm-sub   { font: 500 20px "Segoe UI", "Helvetica Neue", Arial, sans-serif; fill: #64748b; letter-spacing: 3px; }
-    .bracket  { font: 700 120px "SFMono-Regular", "Consolas", monospace; fill: #94a3b8; }
+    .bracket  { stroke: #94a3b8; stroke-width: 10; fill: none; stroke-linecap: round; stroke-linejoin: round; }
     .line     { stroke: #cbd5e1; stroke-width: 8; stroke-linecap: round; }
     @media (prefers-color-scheme: dark) {
       .wm-title { fill: #f1f5f9; }
       .wm-sub   { fill: #94a3b8; }
-      .bracket  { fill: #475569; }
+      .bracket  { stroke: #475569; }
       .line     { stroke: #334155; }
     }
     :root[data-theme="dark"] .wm-title { fill: #f1f5f9; }
     :root[data-theme="dark"] .wm-sub   { fill: #94a3b8; }
-    :root[data-theme="dark"] .bracket  { fill: #475569; }
+    :root[data-theme="dark"] .bracket  { stroke: #475569; }
     :root[data-theme="dark"] .line     { stroke: #334155; }
     :root[data-theme="light"] .wm-title { fill: #0f172a; }
     :root[data-theme="light"] .wm-sub   { fill: #64748b; }
-    :root[data-theme="light"] .bracket  { fill: #94a3b8; }
+    :root[data-theme="light"] .bracket  { stroke: #94a3b8; }
     :root[data-theme="light"] .line     { stroke: #cbd5e1; }
   </style>
 
   <!-- Mark: a clinical note with highlighted entity spans, wrapped in JSON brackets -->
   <g transform="translate(20, 26)">
-    <text x="0"   y="132" class="bracket">[</text>
-    <text x="150" y="132" class="bracket">]</text>
+    <!-- Brackets drawn as vector paths (font-independent) so they always enclose the note -->
+    <path class="bracket" d="M52 28 H30 V162 H52"/>
+    <path class="bracket" d="M148 28 H170 V162 H148"/>
 
-    <g transform="translate(44, 20)">
+    <g transform="translate(48, 40) scale(0.78)">
       <!-- three "lines" of a clinical note with colored entity highlights -->
       <rect x="0"  y="6"   width="96" height="16" rx="8" fill="#3b82f6" opacity="0.9"/>   <!-- entity -->
       <line x1="104" y1="14" x2="132" y2="14" class="line"/>

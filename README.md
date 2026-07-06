@@ -4,7 +4,7 @@
 
 <p align="center">
   <b>Clinical entity recognition from medical text under one task formulation and one evaluation.</b><br>
-  Reproducibility code for the master thesis <i>Clinical Entity Recognition</i>.
+  Reproducibility code for the master thesis <i>Entity Recognition in the Medical Domain Using Large Language Models</i>.
 </p>
 
 ---

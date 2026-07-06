@@ -164,7 +164,7 @@ def main(args):
         args=training_args,
         train_dataset=train_tok,
         eval_dataset=val_tok,
-        tokenizer=tokenizer,
+        processing_class=tokenizer,
         data_collator=DataCollatorForTokenClassification(tokenizer),
         compute_metrics=build_compute_metrics(id2label),
     )

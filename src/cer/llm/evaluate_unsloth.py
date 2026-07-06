@@ -3,7 +3,7 @@
 Greedy decoding is used for reproducibility. The instruction passed via
 ``--model-system-prompt`` must match the one used for training (the thesis
 fine-tuning prompt from :mod:`cer.prompts`). Reported metrics are Exact and
-Relaxed F1 (thesis Section 3.4); ``overlap`` is also available.
+Relaxed F1 (thesis Section 3.4).
 """
 
 import json
